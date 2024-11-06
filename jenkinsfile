@@ -4,17 +4,18 @@ pipeline{
         string (name: 'VERSION' , defaultValue: '1.0.0')
     }
       stages{
+
         stage("Build & push"){
             steps{
                 script{
-                withDockerRegistry(credentialsId: 'dockerhub_Id'){
-                    sh "docker build -t app:${params.VERSION} ."
-                    sh "docker tag myapp:${params.VERSION} jessica94/${params.VERSION}"
-                    sh "docker push jessica94/app:${params.VERSION}"
+                    // This step should not normally be used in your script. Consult the inline help for details.
+                        withDockerRegistry(credentialsId: 'dockerhub_id') {
+                             sh "docker build -t myapp:1.0.0 ."
+                             sh "docker tag myapp:1.0.0 jessica94/myapp:1.0.0"
+                             sh "docker push jessica94/myapp:1.0.0"
             }
-               
+                        }  
         }
     }
-}
 }
 }
