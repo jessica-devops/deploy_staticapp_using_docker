@@ -1,15 +1,15 @@
 pipeline{
     agent any
-    
+
       stages{
 
         stage("Build & push"){
             steps{
                 script{
                     // This step should not normally be used in your script. Consult the inline help for details.
-                        withDockerRegistry(credentialsId: 'dockerhub_id') {
+                        withDockerRegistry(credentialsId: 'Dockerhub-id') {
                              sh "docker build -t myapp:1.0.0 ."
-                             sh "docker tag nginx:1.0.0 jessica94/myapp:1.0.0"
+                             sh "docker tag myapp:1.0.0 jessica94/myapp:1.0.0"
                              sh "docker push jessica94/myapp:1.0.0"
             }
                         }  
