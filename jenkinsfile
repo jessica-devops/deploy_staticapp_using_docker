@@ -1,0 +1,20 @@
+pipeline{
+    agent any
+    parameters{
+        string (name: 'VERSION' , defaultValue: '1.0.0')
+    }
+      stages{
+        stage("Build & push"){
+            steps{
+                script{
+                withDockerRegistry(credentialsId: 'dockerhub_Id'){
+                    sh "docker build -t app:${params.VERSION} ."
+                    sh "docker tag myapp:${params.VERSION} jessica94/${params.VERSION}"
+                    sh "docker push jessica94/app:${params.VERSION}"
+            }
+               
+        }
+    }
+}
+}
+}
