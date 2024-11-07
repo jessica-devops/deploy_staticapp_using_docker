@@ -1,7 +1,7 @@
 pipeline{
     agent any
     parameters{
-        string ( name: 'VERSION' , DefaultValue: '1.0.0')
+        string( name: 'VERSION' , defaultValue: '1.0.0')
     }
 
     stages{
