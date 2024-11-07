@@ -1,5 +1,8 @@
 pipeline{
     agent any
+    parameters{
+        string( name: 'IMAGE-TAG' , DefaultValue: '1.0.0')
+    }
 
       stages{
 
