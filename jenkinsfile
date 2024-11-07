@@ -1,8 +1,8 @@
 pipeline{
     agent any
-    parameters{
-        string( name: 'IMAGE-TAG' , DefaultValue: '1.0.0')
-    }
+    //parameters{
+        //string( name: 'IMAGE-TAG' , DefaultValue: '1.0.0')
+   // }
 
       stages{
 
@@ -10,7 +10,7 @@ pipeline{
             steps{
                 script{
                     // This step should not normally be used in your script. Consult the inline help for details.
-                        withDockerRegistry(credentialsId: 'Dockerhub-id') {
+                        withDockerRegistry(credentialsId: 'dockerhuub-id') {
                              sh "docker build -t myapp:1.0.0 ."
                              sh "docker tag myapp:1.0.0 jessica94/myapp:1.0.0"
                              sh "docker push jessica94/myapp:1.0.0"
