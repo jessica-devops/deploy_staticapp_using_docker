@@ -2,8 +2,13 @@ pipeline{
     agent any
     parameters{
         string( name: 'VERSION' , defaultValue: '1.0.0')
+        // choice( name: 'STAGE' , 'Choices: ['PROD', 'DEV', 'QA'])
     }
-
+// ...................................................
+    //environment
+        //GIT_RIPO = https://github.com/jessica-devops/deploy_staticapp_using_docker.git
+        // DOCKER_VERSION = $"{params.VERSION}"
+        //ENVIRON = $"{params.STAGE}"
     stages{
 
         stage("Build & push"){
