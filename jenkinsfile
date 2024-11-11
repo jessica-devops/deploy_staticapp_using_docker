@@ -11,7 +11,7 @@ pipeline{
         //ENVIRON = $"{params.STAGE}"
     stages{
 
-        stage("Build & push1"){
+        stage("Build & push"){
             steps{
                 script{
                     // This step should not normally be used in your script. Consult the inline help for details.
