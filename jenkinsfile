@@ -1,7 +1,7 @@
 pipeline{
     agent any
     parameters{
-        string( name: 'VERSION' , defaultValue: '1.0.0')
+        string( name: 'image' , defaultValue: '1.0.0')
         // choice( name: 'STAGE' , 'Choices: ['PROD', 'DEV', 'QA'])
     }
 // ...................................................
@@ -11,17 +11,30 @@ pipeline{
         //ENVIRON = $"{params.STAGE}"
     stages{
 
-        stage("Build & push"){
+        //stage("Build & push"){
+          //  steps{
+            //    script{
+                    // This step should not normally be used in your script. Consult the inline help for details.
+              //          withDockerRegistry(credentialsId: 'dockerhuub-id') {
+                //             sh "docker build -t myapp:${params.VERSION} ."
+                  //           sh "docker tag myapp:${params.VERSION} jessica94/myapp:${params.VERSION}"
+                    //         sh "docker push jessica94/myapp:${params.VERSION}"
+           // }
+         //}  
+        //}
+         stage("Build & push to ECR"){
             steps{
                 script{
                     // This step should not normally be used in your script. Consult the inline help for details.
-                        withDockerRegistry(credentialsId: 'dockerhuub-id') {
-                             sh "docker build -t myapp:${params.VERSION} ."
-                             sh "docker tag myapp:${params.VERSION} jessica94/myapp:${params.VERSION}"
-                             sh "docker push jessica94/myapp:${params.VERSION}"
+                        withDockerRegistry(credentialsId: 'ecr:us-east-1:clin-id', url: 'https://727732356710.dkr.ecr.us-east-1.amazonaws.com/') {
+                            sh "docker build -t clinic-app:${params.image} ."
+                            sh "docker tag clinic-app:${params.image} 727732356710.dkr.ecr.us-east-1.amazonaws.com/clinic-app:${params.image}"
+                            sh "docker tag clinic-app:${params.image} 727732356710.dkr.ecr.us-east-1.amazonaws.com/clinic-app:latest"
+                            sh "docker push 727732356710.dkr.ecr.us-east-1.amazonaws.com/clinic-app:latest"
+
+              }
             }
-         }  
+        }
         }
     }
-}
 }
