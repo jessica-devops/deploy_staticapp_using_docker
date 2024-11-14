@@ -9,11 +9,11 @@ pipeline{
         //GIT_RIPO = https://github.com/jessica-devops/deploy_staticapp_using_docker.git
         // DOCKER_VERSION = $"{params.VERSION}"
         //ENVIRON = $"{params.STAGE}"
-    environment{
-        ECS_CLUSTER_NAME = "Klinic-cluster"
-        ECS_SERVICE_NAME = "klinic-service"
+   // environment{
+     //   ECS_CLUSTER_NAME = "Klinic-cluster"
+       // ECS_SERVICE_NAME = "klinic-service"
 
-    }
+    //}
     stages{
 
         //stage("Build & push"){
