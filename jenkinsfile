@@ -4,16 +4,6 @@ pipeline{
         string( name: 'image' , defaultValue: '1.0.0')
         // choice( name: 'STAGE' , 'Choices: ['PROD', 'DEV', 'QA'])
     }
-// ...................................................
-    //environment
-        //GIT_RIPO = https://github.com/jessica-devops/deploy_staticapp_using_docker.git
-        // DOCKER_VERSION = $"{params.VERSION}"
-        //ENVIRON = $"{params.STAGE}"
-   // environment{
-     //   ECS_CLUSTER_NAME = "Klinic-cluster"
-       // ECS_SERVICE_NAME = "klinic-service"
-
-    //}
     stages{
 
         //stage("Build & push"){
@@ -32,6 +22,7 @@ pipeline{
                 script{
                     // This step should not normally be used in your script. Consult the inline help for details.
                         withDockerRegistry(credentialsId: 'ecr:us-east-1:clin-id', url: 'https://727732356710.dkr.ecr.us-east-1.amazonaws.com/'){
+                            echo "Hello Jessica"
                             sh "docker build -t clinic-app:${params.image} ."
                             sh "docker tag clinic-app:${params.image} 727732356710.dkr.ecr.us-east-1.amazonaws.com/clinic-app:${params.image}"
                             sh "docker tag clinic-app:${params.image} 727732356710.dkr.ecr.us-east-1.amazonaws.com/clinic-app:latest"
@@ -43,7 +34,7 @@ pipeline{
 
         stage ("update ECS"){
             steps{
-                sh "aws ecs update-service --cluster ${ECS_CLUSTER_NAME} --service ${ECS_SERVICE_NAME} --force-new-deployment"
+                sh "aws ecs update-service --cluster Klinic-cluster --service klinic-service --force-new-deployment"
             }
         }
     }
