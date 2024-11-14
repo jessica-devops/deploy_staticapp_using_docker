@@ -26,12 +26,11 @@ pipeline{
             steps{
                 script{
                     // This step should not normally be used in your script. Consult the inline help for details.
-                        withDockerRegistry(credentialsId: 'ecr:us-east-1:clin-id', url: 'https://727732356710.dkr.ecr.us-east-1.amazonaws.com/') {
+                        withDockerRegistry(credentialsId: 'ecr:us-east-1:clin-id', url: 'https://727732356710.dkr.ecr.us-east-1.amazonaws.com/'){
                             sh "docker build -t clinic-app:${params.image} ."
                             sh "docker tag clinic-app:${params.image} 727732356710.dkr.ecr.us-east-1.amazonaws.com/clinic-app:${params.image}"
                             sh "docker tag clinic-app:${params.image} 727732356710.dkr.ecr.us-east-1.amazonaws.com/clinic-app:latest"
                             sh "docker push 727732356710.dkr.ecr.us-east-1.amazonaws.com/clinic-app:latest"
-
               }
             }
         }
